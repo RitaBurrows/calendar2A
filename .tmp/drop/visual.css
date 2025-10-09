@@ -784,5 +784,27 @@ span.flatpickr-weekday {
   }
 }
 
+.calendar-root {
+  width: 300px;
+  height: 315px;
+  display: flex;
+  justify-content: left;
+  align-items: top;
+}
+.calendar-container-inline {
+  width: auto;
+  height: auto;
+}
+.flatpickr-day.selected,
+.flatpickr-day.startRange,
+.flatpickr-day.endRange {
+  background: #4C8ED1 !important;
+  border-color: #4C8ED1 !important;
+}
+.flatpickr-day.inRange {
+  background: #75A7DC !important;
+  border-color: #75A7DC !important;
+}
+
 
 /*# sourceMappingURL=https://localhost:8080/assets/visual.css.map*/
