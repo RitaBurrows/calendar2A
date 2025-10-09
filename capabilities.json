@@ -29,6 +29,12 @@
         }
     ],
     "objects": {
+        "sharedDateRange": { 
+            "displayName": "Shared Date Sting", 
+            "properties": { 
+                "dateString": { "type": { "text": true } } 
+            } 
+        }, 
         "general": {
             "displayName": "General",
             "displayNameKey": "Visual_General",

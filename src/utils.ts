@@ -1,10 +1,14 @@
 export class Utils {
 
-    public static formatDate(date: Date): string {
+    public static formatDate(date: Date, stringType: string): string {
         const day = String(date.getDate()).padStart(2, "0");
         const month = String(date.getMonth() + 1).padStart(2, "0");
         const year = date.getFullYear();
-        return `${day}/${month}/${year}`;
+        return stringType === "inputBox" ? `${day}/${month}/${year}` : `${year}-${month}-${day}`;
+    }
+
+    public static createDateString(startDate: Date, endDate: Date){
+        return `${this.formatDate(startDate, "sharedState")} to ${Utils.formatDate(endDate, "sharedState")}`;
     }
 
     public static getNormalisedYearStart(date: Date): Date {
