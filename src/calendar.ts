@@ -27,7 +27,7 @@ export class Calendar implements IVisual {
     private rootSelection: d3.Selection<any, any, any, any>;
 
     private applyFilter(datefield: any, startDate: Date, endDate: Date) {
-        console.log("Calendar applyFilter - startDate, endDate:\n", startDate, endDate)
+        console.log("Calendar applyFilter - startDate, endDate:", startDate, endDate)
         if (datefield) {
             const filter = new AdvancedFilter(
                 {
@@ -66,8 +66,8 @@ export class Calendar implements IVisual {
             onChange: (selectedDates, dateString, instance) => {
                 const today = new Date();
                 if (selectedDates.length === 2) {
-                    console.log("Calender renderCalender onChange - dateString:\n", dateString);
-                    console.log("Calender renderCalender onChange - selectedDates:\n", selectedDates);
+                    console.log("Calender renderCalender onChange - dateString:", dateString);
+                    console.log("Calender renderCalender onChange - selectedDates:", selectedDates);
                     this.host.persistProperties({
                         merge: [{
                             objectName: "sharedDateRange",
@@ -83,7 +83,7 @@ export class Calendar implements IVisual {
 
     private splitDateString(dateStr: any) {
         const dates = dateStr.split(" to ")
-        console.log("Calendar splitDateString - dates:\n", dates)
+        console.log("Calendar splitDateString - dates:", dates)
         this.startDate = new Date(dates[0])
         this.endDate = this.normaliseEndDate(new Date(dates[1]))
     }
@@ -107,7 +107,6 @@ export class Calendar implements IVisual {
     public update(options: VisualUpdateOptions) {
         try {
             console.log("Calendar update - options:", options);
-
             if (!options) {
                 console.log("Calendar update: No options available");
                 return;
@@ -120,11 +119,12 @@ export class Calendar implements IVisual {
 
             const dataView: DataView = options.dataViews[0];
 
-            Calendar.dateField = dataView.metadata.columns.find(col => col.roles && col.roles["Time"]);
-
-            if (!Calendar.dateField) {
-                console.log("Calendar update: No dateField found");
-                return;
+             if (!Calendar.dateField) {
+                Calendar.dateField = dataView.metadata.columns.find(col => col.roles && col.roles["Time"]);
+                if (!Calendar.dateField) {
+                    console.log("Calendar update: No dateField found");
+                    return;
+                }
             }
 
             const dateRangetext = dataView.metadata?.objects?.sharedDateRange?.dateString || "2025-09-02 to 2025-09-07" //REMOVE '|| "2025-09-02 ...'
@@ -135,7 +135,7 @@ export class Calendar implements IVisual {
             }
 
             Calendar.dateString = dateRangetext && dateRangetext as DataViewPropertyValue
-            console.log("Calendar update - Calendar.dateString:\n", Calendar.dateString);
+            console.log("Calendar update - Calendar.dateString:", Calendar.dateString);
 
             this.splitDateString(Calendar.dateString);
             this.renderCalender(Calendar.dateField, this.startDate, this.endDate);
@@ -143,8 +143,8 @@ export class Calendar implements IVisual {
 
             console.log("*** End of Calendar update ***");
         }
-        catch (err) {
-            console.log(err)
+        catch (error) {
+            console.log("Calendar - catch - error:", error)
         }
     }
 }
