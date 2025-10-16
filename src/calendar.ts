@@ -1,4 +1,4 @@
-"use strict";
+//"use strict";
 
 import powerbiVisualsApi from "powerbi-visuals-api";
 import { AdvancedFilter } from "powerbi-models";
@@ -17,8 +17,8 @@ import "../style/visual.css"
 export class Calendar implements IVisual {
 
     private calendarContainer: d3.Selection<HTMLDivElement, unknown, null, undefined>;
-    private static dateField: DataViewMetadataColumn | undefined;
-    private static dateString: DataViewPropertyValue | undefined
+    private static dateField: DataViewMetadataColumn | null;
+    private static dateString: DataViewPropertyValue | null;
     private endDate: Date | null = null;
     private host: IVisualHost;
     private jsonFilters: AdvancedFilter[] = [];
